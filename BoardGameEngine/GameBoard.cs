@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BoardGameEngine
 {
     /// <summary>
-    /// This class represents the main square gameboard that the player will be using to deduce what 
+    /// This class represents the main square game board that the player will be using to deduce what 
     /// choice the other player has made.
     /// </summary>
     public class GameBoard
