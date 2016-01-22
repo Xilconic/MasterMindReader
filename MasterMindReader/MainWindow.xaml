@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MasterMindReader"
         mc:Ignorable="d"
-        Title="MasterMindReader" Height="350" Width="525">
+        Title="MasterMindReader" Height="800" Width="800" ResizeMode="NoResize">
     <Grid>
-        
+        <local:GameBoardControl HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
     </Grid>
 </Window>
