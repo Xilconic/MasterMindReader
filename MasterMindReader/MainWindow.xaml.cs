@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BoardGameEngine;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,14 @@ namespace MasterMindReader
     /// </summary>
     public partial class MainWindow : Window
     {
+        private GameBoard board;
+
         public MainWindow()
         {
             InitializeComponent();
+            board = new GameBoard();
+
+            GameBoardControl.Data = board;
         }
     }
 }

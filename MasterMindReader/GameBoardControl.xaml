@@ -8,7 +8,7 @@
              MinHeight="750" MinWidth="750"
              d:DesignHeight="750" d:DesignWidth="750
              ">
-    <Grid >
+    <Grid x:Name="GameGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>

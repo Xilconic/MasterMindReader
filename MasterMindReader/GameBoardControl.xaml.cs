@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BoardGameEngine;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,27 @@ namespace MasterMindReader
     /// </summary>
     public partial class GameBoardControl : UserControl
     {
+        private GameBoard data;
+
         public GameBoardControl()
         {
             InitializeComponent();
+        }
+
+        public GameBoard Data
+        {
+            get { return data; }
+            set
+            {
+                data = value;
+
+                foreach(var elementControl in GameGrid.Children.OfType<GameBoardElementControl>())
+                {
+                    int i = Grid.GetRow(elementControl);
+                    int j = Grid.GetColumn(elementControl);
+                    elementControl.Data = data.Elements[i, j];
+                }
+            }
         }
     }
 }

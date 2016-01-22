@@ -112,6 +112,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BoardGameEngine\BoardGameEngine.csproj">
+      <Project>{0c0adb59-aa5a-4f8d-8a09-19224bdf7c7f}</Project>
+      <Name>BoardGameEngine</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

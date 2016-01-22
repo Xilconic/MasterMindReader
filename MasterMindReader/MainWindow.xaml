@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MasterMindReader" Height="800" Width="800" ResizeMode="NoResize">
     <Grid>
-        <local:GameBoardControl HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <local:GameBoardControl x:Name="GameBoardControl"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
     </Grid>
 </Window>

@@ -10,7 +10,7 @@
     <Grid>
         <Grid.Background>
             <RadialGradientBrush>
-                <GradientStop Color="Black" Offset="0.937"/>
+                <GradientStop x:Name="SecondaryValueColor" Color="Black" Offset="0.937"/>
                 <GradientStop Color="White" Offset="0.463"/>
                 <GradientStop Color="White" Offset="0.963"/>
             </RadialGradientBrush>

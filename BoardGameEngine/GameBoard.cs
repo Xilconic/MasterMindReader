@@ -38,7 +38,7 @@ namespace BoardGameEngine
                     for (int j = 0; j < size; j++)
                     {
                         var elementCode = textElements[j];
-                        int primaryValue = Convert.ToInt32(elementCode[0]);
+                        int primaryValue = int.Parse(string.Format("{0}", elementCode[0]));
                         int secondaryValue = GetValueFromChar(elementCode[1]);
                         elements[i, j] = new GameBoardElement(primaryValue, secondaryValue);
                     }
