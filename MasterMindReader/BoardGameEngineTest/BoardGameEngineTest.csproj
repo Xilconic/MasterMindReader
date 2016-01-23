@@ -47,6 +47,7 @@
     <Compile Include="EnummerableExtensionsTest.cs" />
     <Compile Include="GameBoardElementTest.cs" />
     <Compile Include="GameBoardTest.cs" />
+    <Compile Include="PlayerBotTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
