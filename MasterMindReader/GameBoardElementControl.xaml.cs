@@ -40,6 +40,7 @@ namespace MasterMindReader
 
                 label.Content = data.ElementValue;
                 SecondaryValueColor.Color = GetColorForSecondaryValue(data);
+                image.Source = null;
             }
         }
 
