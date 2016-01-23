@@ -120,19 +120,19 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\CrossedOut.png" />
+    <Resource Include="Resources\CrossedOut.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\NeitherRowNorColumn.png" />
+    <Resource Include="Resources\NeitherRowNorColumn.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\NotColumn.png" />
+    <Resource Include="Resources\NotColumn.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\NotRow.png" />
+    <Resource Include="Resources\NotRow.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Yes.png" />
+    <Resource Include="Resources\Yes.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

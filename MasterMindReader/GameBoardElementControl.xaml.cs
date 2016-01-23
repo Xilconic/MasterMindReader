@@ -1,18 +1,8 @@
 ﻿using BoardGameEngine;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MasterMindReader
 {
@@ -67,6 +57,41 @@ namespace MasterMindReader
                 return Colors.Firebrick;
             }
             throw new NotImplementedException();
+        }
+
+        private void UpdateImageOverlayForGameState()
+        {
+            switch(data.State){
+                case ElementState.Empty:
+                    image.Source = null;
+                    break;
+                case ElementState.Yes:
+                    SetImageSourceFromResource("Yes.png");
+                    break;
+                case ElementState.NotValue:
+                    SetImageSourceFromResource("CrossedOut.png");
+                    break;
+                case ElementState.NotRow:
+                    SetImageSourceFromResource("NotRow.png");
+                    break;
+                case ElementState.NotColumn:
+                    SetImageSourceFromResource("NotColumn.png");
+                    break;
+                case ElementState.NeitherRowNorColumn:
+                    SetImageSourceFromResource("NeitherRowNorColumn.png");
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        private void SetImageSourceFromResource(string imageFileName)
+        {
+            BitmapImage overlay = new BitmapImage();
+            overlay.BeginInit();
+            overlay.UriSource = new Uri("pack://application:,,,/AssemblyName;component/Resources/"+ imageFileName);
+            overlay.EndInit();
+            image.Source = overlay;
         }
     }
 }
