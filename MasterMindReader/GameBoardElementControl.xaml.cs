@@ -129,7 +129,7 @@ namespace MasterMindReader
         {
             BitmapImage overlay = new BitmapImage();
             overlay.BeginInit();
-            overlay.UriSource = new Uri("pack://application:,,,/AssemblyName;component/Resources/"+ imageFileName);
+            overlay.UriSource = new Uri("pack://application:,,,/MasterMindReader;component/Resources/"+ imageFileName);
             overlay.EndInit();
             image.Source = overlay;
         }

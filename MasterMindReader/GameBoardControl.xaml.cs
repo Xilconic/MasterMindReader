@@ -23,6 +23,15 @@ namespace MasterMindReader
     {
         private GameBoard data;
 
+        public static readonly RoutedEvent ElementClickEvent = EventManager.RegisterRoutedEvent(
+            "ElementClick", RoutingStrategy.Bubble, typeof(GameBoardControlElementClickEventHandler), typeof(GameBoardControl));
+
+        public event GameBoardControlElementClickEventHandler ElementClick
+        {
+            add { AddHandler(ElementClickEvent, value); }
+            remove { RemoveHandler(ElementClickEvent, value); }
+        }
+
         public GameBoardControl()
         {
             InitializeComponent();
@@ -46,9 +55,34 @@ namespace MasterMindReader
 
         private void UserControl_Click(object sender, RoutedEventArgs e)
         {
-            var elementControl = (GameBoardElementControl)e.Source;
-            int i = Grid.GetRow(elementControl);
-            int j = Grid.GetColumn(elementControl);
+            var elementControl = e.OriginalSource as GameBoardElementControl;
+            if (elementControl != null)
+            {
+                RaiseElementClickEvent(elementControl);
+            }
+        }
+
+        private void RaiseElementClickEvent(GameBoardElementControl elementControl)
+        {
+            int rowIndex = Grid.GetRow(elementControl);
+            int columnIndex = Grid.GetColumn(elementControl);
+            var newEventArgs = new GameBoardControlElementClickEventArgs(ElementClickEvent, rowIndex, columnIndex);
+            RaiseEvent(newEventArgs);
+        }
+
+        public delegate void GameBoardControlElementClickEventHandler(object sender, GameBoardControlElementClickEventArgs e);
+
+        public sealed class GameBoardControlElementClickEventArgs : RoutedEventArgs
+        {
+            public GameBoardControlElementClickEventArgs(RoutedEvent routedEvent, int rownIndex, int columnIndex) : base(routedEvent)
+            {
+                RowIndex = rownIndex;
+                ColumnIndex = columnIndex;
+            }
+
+            public int RowIndex { get; private set; }
+
+            public int ColumnIndex { get; private set; }
         }
     }
 }

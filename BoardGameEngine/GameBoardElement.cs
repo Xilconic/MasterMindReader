@@ -63,7 +63,7 @@ namespace BoardGameEngine
                 (State == ElementState.NotValue || State == ElementState.NotRow || 
                  State == ElementState.NotColumn || State == ElementState.NeitherRowNorColumn))
             {
-                throw new InvalidOperationException("Bug in game logic detected: Row marked as not matching cannot ever be marked as possible match later!");
+                return;
             }
             if (markingState == ElementState.NotValue && 
                 (State == ElementState.NotRow || State == ElementState.NotColumn || 

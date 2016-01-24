@@ -102,18 +102,17 @@ namespace BoardGameEngineTest
         [TestCase(ElementState.NotColumn)]
         [TestCase(ElementState.NotRow)]
         [TestCase(ElementState.NeitherRowNorColumn)]
-        public void MarkElement_FromAnyNotToYes_ThrowInvalidOperationException(ElementState notState)
+        public void MarkElement_FromAnyNotToYes_DoNotChangeState(ElementState notState)
         {
             // Setup
             var element = new GameBoardElement(0, 0);
             element.MarkElement(notState);
 
             // Call
-            TestDelegate call = () => element.MarkElement(ElementState.Yes);
+            element.MarkElement(ElementState.Yes);
 
             // Assert
-            string message = Assert.Throws<InvalidOperationException>(call).Message;
-            Assert.AreEqual("Bug in game logic detected: Row marked as not matching cannot ever be marked as possible match later!", message);
+            Assert.AreEqual(notState, element.State);
         }
 
         [Test]

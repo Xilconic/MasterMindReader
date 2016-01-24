@@ -22,13 +22,29 @@ namespace MasterMindReader
     public partial class MainWindow : Window
     {
         private GameBoard board;
+        private PlayerBot bot;
 
         public MainWindow()
         {
             InitializeComponent();
+
             board = new GameBoard();
+            bot = new PlayerBot(board);
+            bot.ChooseBoardElement(new Random());
 
             GameBoardControl.Data = board;
+        }
+
+        private void Window_ElementClick(object sender, GameBoardControl.GameBoardControlElementClickEventArgs e)
+        {
+            if (bot.AskLocation(e.RowIndex, e.ColumnIndex))
+            {
+                board.MarkYes(e.RowIndex, e.ColumnIndex);
+            }
+            else
+            {
+                board.MarkNo(e.RowIndex, e.ColumnIndex);
+            }
         }
     }
 }
