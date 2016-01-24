@@ -1,5 +1,6 @@
 ﻿using BoardGameEngine;
 using NUnit.Framework;
+using Rhino.Mocks;
 using System;
 
 namespace BoardGameEngineTest
@@ -16,6 +17,7 @@ namespace BoardGameEngineTest
             var element = new GameBoardElement(horizontalIndex, verticalIndex);
 
             // Assert
+            Assert.IsInstanceOf<IObservable<ElementState>>(element);
             Assert.AreEqual(horizontalIndex, element.ElementValue);
             Assert.AreEqual(verticalIndex, element.SecondaryElementValue);
             Assert.AreEqual(ElementState.Empty, element.State);
@@ -189,6 +191,45 @@ namespace BoardGameEngineTest
 
             // Assert
             Assert.AreEqual(ElementState.NeitherRowNorColumn, element.State);
+        }
+
+        [Test]
+        public void MarkElement_WithObserverAndChangingValue_ObserverIsNotified()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver<ElementState>>();
+            observer.Expect(o => o.OnNext(ElementState.NotRow));
+            mocks.ReplayAll();
+
+            var element = new GameBoardElement(0, 0);
+            using (element.Subscribe(observer))
+            {
+                // Call
+                element.MarkElement(ElementState.NotRow);
+            }
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void MarkElement_WithObserverUnsubscribedAndChangingValue_ObserverNotNotified()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver<ElementState>>();
+            mocks.ReplayAll();
+
+            var element = new GameBoardElement(0, 0);
+            using (element.Subscribe(observer))
+            {
+                
+            }
+            // Call
+            element.MarkElement(ElementState.NotRow);
+
+            // Assert
+            mocks.VerifyAll();
         }
     }
 }

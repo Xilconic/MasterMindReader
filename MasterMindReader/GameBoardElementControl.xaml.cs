@@ -9,9 +9,10 @@ namespace MasterMindReader
     /// <summary>
     /// Interaction logic for GameBoardElementControl.xaml
     /// </summary>
-    public partial class GameBoardElementControl : UserControl
+    public partial class GameBoardElementControl : UserControl, IObserver<ElementState>
     {
         private GameBoardElement data;
+        private IDisposable unsubscriber;
 
         public GameBoardElementControl()
         {
@@ -26,12 +27,34 @@ namespace MasterMindReader
             }
             set
             {
+                if (unsubscriber != null)
+                {
+                    unsubscriber.Dispose();
+                }
+
                 data = value;
 
                 label.Content = data.ElementValue;
                 SecondaryValueColor.Color = GetColorForSecondaryValue(data);
-                image.Source = null;
+                UpdateImageOverlayForGameState(data.State);
+
+                unsubscriber = data.Subscribe(this);
             }
+        }
+
+        public void OnNext(ElementState value)
+        {
+            UpdateImageOverlayForGameState(value);
+        }
+
+        public void OnError(Exception error)
+        {
+            // Do nothing with errors.
+        }
+
+        public void OnCompleted()
+        {
+            unsubscriber.Dispose();
         }
 
         private Color GetColorForSecondaryValue(GameBoardElement data)
@@ -59,9 +82,10 @@ namespace MasterMindReader
             throw new NotImplementedException();
         }
 
-        private void UpdateImageOverlayForGameState()
+        private void UpdateImageOverlayForGameState(ElementState newState)
         {
-            switch(data.State){
+            switch(newState)
+            {
                 case ElementState.Empty:
                     image.Source = null;
                     break;

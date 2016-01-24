@@ -1,12 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace BoardGameEngine
 {
     /// <summary>
     /// This class represents 1 element that is part of <see cref="GameBoard"/>.
     /// </summary>
-    public class GameBoardElement
+    public class GameBoardElement : IObservable<ElementState>
     {
+        private ICollection<IObserver<ElementState>> observers;
+        private ElementState state;
+
         /// <summary>
         /// Initializes a new instance of <see cref="GameBoardElement"/> for a given coordinate in a
         /// <see cref="GameBoard"/>.
@@ -15,6 +19,7 @@ namespace BoardGameEngine
         /// <param name="secondaryValue">The secondary value.</param>
         public GameBoardElement(int primaryValue, int secondaryValue)
         {
+            observers = new HashSet<IObserver<ElementState>>();
             ElementValue = primaryValue;
             SecondaryElementValue = secondaryValue;
         }
@@ -32,7 +37,21 @@ namespace BoardGameEngine
         /// <summary>
         /// Denotes the game state of the board-element.
         /// </summary>
-        public ElementState State { get; private set; }
+        public ElementState State
+        {
+            get
+            {
+                return state;
+            }
+            private set
+            {
+                state = value;
+                foreach (IObserver<ElementState> observer in observers)
+                {
+                    observer.OnNext(state);
+                }
+            }
+        }
 
         /// <summary>
         /// Update the <see cref="State"/> of this element given information changes to the state.
@@ -64,5 +83,33 @@ namespace BoardGameEngine
             }
             State = markingState;
         }
+
+        /// <summary>
+        /// Subscribe to changes of <see cref="State"/>.
+        /// </summary>
+        /// <param name="observer">The instances wanting to observer state changes.</param>
+        /// <returns>The object to be used to unsubscribe again.</returns>
+        public IDisposable Subscribe(IObserver<ElementState> observer)
+        {
+            if (!observers.Contains(observer)) observers.Add(observer);
+            return new ElementStateObserverUnsubscriber(observer, observers);
+        }
+
+        private class ElementStateObserverUnsubscriber : IDisposable
+        {
+            private IObserver<ElementState> observer;
+            private ICollection<IObserver<ElementState>> observers;
+
+            public ElementStateObserverUnsubscriber(IObserver<ElementState> observer, ICollection<IObserver<ElementState>> observers)
+            {
+                this.observer = observer;
+                this.observers = observers;
+            }
+            public void Dispose()
+            {
+                observers.Remove(observer);
+            }
+        }
+
     }
 }
