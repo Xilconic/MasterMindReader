@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:MasterMindReader"
              mc:Ignorable="d" 
              MinHeight="750" MinWidth="750"
-             d:DesignHeight="750" d:DesignWidth="750
-             ">
+             local:GameBoardElementControl.Click="UserControl_Click"
+             d:DesignHeight="750" d:DesignWidth="750">
     <Grid x:Name="GameGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>

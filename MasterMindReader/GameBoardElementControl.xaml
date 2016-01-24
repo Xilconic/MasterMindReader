@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:MasterMindReader"
              mc:Ignorable="d" 
              MinHeight="75" MinWidth="75"
+             MouseUp="UserControl_MouseUp"
              d:DesignHeight="75" d:DesignWidth="75">
     <Grid>
         <Grid.Background>
@@ -17,6 +18,5 @@
         </Grid.Background>
         <Label x:Name="label" Content="99" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="32"/>
         <Image x:Name="image" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-
     </Grid>
 </UserControl>

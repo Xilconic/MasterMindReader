@@ -43,5 +43,12 @@ namespace MasterMindReader
                 }
             }
         }
+
+        private void UserControl_Click(object sender, RoutedEventArgs e)
+        {
+            var elementControl = (GameBoardElementControl)e.Source;
+            int i = Grid.GetRow(elementControl);
+            int j = Grid.GetColumn(elementControl);
+        }
     }
 }
