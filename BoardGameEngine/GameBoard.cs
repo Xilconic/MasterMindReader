@@ -24,6 +24,36 @@ namespace BoardGameEngine
             GenerateElements();
         }
 
+        /// <summary>
+        /// Notes new information on the board.
+        /// </summary>
+        /// <param name="rowIndex">The row index.</param>
+        /// <param name="columnIndex">The column index.</param>
+        public void MarkYes(int rowIndex, int columnIndex)
+        {
+            elements[rowIndex, columnIndex].MarkElement(ElementState.Yes);
+        }
+
+        /// <summary>
+        /// Notes new information on the board.
+        /// </summary>
+        /// <param name="rowIndex">The row index.</param>
+        /// <param name="columnIndex">The column index.</param>
+        public void MarkNo(int rowIndex, int columnIndex)
+        {
+            elements[rowIndex, columnIndex].MarkElement(ElementState.NeitherRowNorColumn);
+
+            foreach (int i in Enumerable.Range(0, size).Except(new[] { columnIndex }))
+            {
+                elements[rowIndex, i].MarkElement(ElementState.NotRow);
+            }
+
+            foreach (int i in Enumerable.Range(0, size).Except(new[] { rowIndex }))
+            {
+                elements[i, columnIndex].MarkElement(ElementState.NotColumn);
+            }
+        }
+
         private void GenerateElements()
         {
             elements = new GameBoardElement[size, size];
